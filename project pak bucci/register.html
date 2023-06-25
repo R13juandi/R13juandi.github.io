@@ -1,0 +1,54 @@
+from flask import Flask, render_template, request, redirect, session
+
+app = Flask(_name_)
+app.secret_key = 'secret_key'
+
+# Data pengguna yang disimpan dalam variabel (sementara)
+users = []
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        # Menyimpan data pengguna baru
+        users.append({'username': username, 'password': password})
+        return redirect('/login')
+    return render_template('register.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        # Memeriksa apakah pengguna ada dalam data pengguna yang disimpan
+        for user in users:
+            if user['username'] == username and user['password'] == password:
+                # Menyimpan status login pengguna dalam session
+                session['logged_in'] = True
+                session['username'] = username
+                return redirect('/dashboard')
+        return 'Username atau password salah'
+    return render_template('login.html')
+
+@app.route('/dashboard')
+def dashboard():
+    # Memeriksa apakah pengguna sudah login sebelum mengakses halaman dashboard
+    if 'logged_in' in session:
+        username = session['username']
+        return f'Halaman dashboard, selamat datang {username}!'
+    return redirect('/login')
+
+@app.route('/logout')
+def logout():
+    # Menghapus status login pengguna dari session saat logout
+    session.pop('logged_in', None)
+    session.pop('username', None)
+    return redirect('/login')
+
+if _name_ == '_main_':
+    app.run(debug=True)

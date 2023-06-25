@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>E-commerce Admin</title>
+  <style>
+    /* CSS styling */
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #f4f4f4;
+      padding: 10px;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      padding: 5px;
+    }
+
+    .container {
+      margin: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>E-commerce Admin Panel</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#dashboard">Dashboard</a></li>
+      <li><a href="#data-master">Data Master</a></li>
+      <li><a href="#data-transaksi">Data Transaksi</a></li>
+      <li><a href="#data-laporan">Data Laporan</a></li>
+      <li><a href="#logout">Logout</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div id="dashboard">
+      <h2>Dashboard</h2>
+      <p>Halaman dashboard admin.</p>
+    </div>
+
+    <div id="data-master">
+      <h2>Data Master</h2>
+      <p>Halaman data master admin.</p>
+    </div>
+
+    <div id="data-transaksi">
+      <h2>Data Transaksi</h2>
+      <p>Halaman data transaksi admin.</p>
+    </div>
+
+    <div id="data-laporan">
+      <h2>Data Laporan</h2>
+      <p>Halaman data laporan admin.</p>
+    </div>
+
+    <div id="logout">
+      <h2>Logout</h2>
+      <p>Anda telah berhasil logout.</p>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript
+    // Memperlihatkan halaman yang sesuai berdasarkan tautan yang diklik
+    function showPage(pageId) {
+      var pages = document.getElementsByClassName('container')[0].children;
+      for (var i = 0; i < pages.length; i++) {
+        pages[i].style.display = 'none';
+      }
+      document.getElementById(pageId).style.display = 'block';
+    }
+
+    // Mengatur tautan untuk memanggil fungsi showPage() dengan parameter yang sesuai
+    document.addEventListener('DOMContentLoaded', function() {
+      var links = document.querySelectorAll('nav a');
+      for (var i = 0; i < links.length; i++) {
+        links[i].addEventListener('click', function(e) {
+          e.preventDefault();
+          var pageId = this.getAttribute('href').substring(1);
+          showPage(pageId);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
